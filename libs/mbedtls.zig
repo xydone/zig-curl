@@ -21,6 +21,8 @@ pub fn create(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.bui
         lib.addCSourceFile(.{ .file = mbedtls_dep.path(s), .flags = &.{"-std=c99"} });
     }
 
+    lib.root_module.addCMacro("MBEDTLS_THREADING_C", "1");
+    lib.root_module.addCMacro("MBEDTLS_THREADING_PTHREAD", "1");
     lib.addIncludePath(mbedtls_dep.path("include"));
     lib.addIncludePath(mbedtls_dep.path("library"));
     lib.installHeadersDirectory(mbedtls_dep.path("include/mbedtls"), "mbedtls", .{});
